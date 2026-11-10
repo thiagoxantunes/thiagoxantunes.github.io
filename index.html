@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Thiago Antunes — Portfólio</title>
+<meta name="description" content="Thiago Antunes: Analista de Sistemas e Automação e Desenvolvedor Full-Stack. Sistemas web, automação de processos e energia solar.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Layout: coluna única alinhada à esquerda; o herói é a curva de geração de um dia de usina solar (06h–18h). */
+:root {
+  --bg: #f4f6f9;
+  --surface: #ffffff;
+  --ink: #13233d;
+  --muted: #56667e;
+  --line: #d5dde8;
+  --sun: #d98b0b;
+  --sun-soft: rgba(232, 163, 23, .16);
+  --cell: #1f4f8f;
+  --font-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0d1828; --surface: #142339; --ink: #e8eef6; --muted: #9aabc2;
+    --line: #26384f; --sun: #f2b33d; --sun-soft: rgba(242, 179, 61, .14); --cell: #7fa8e0;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0d1828; --surface: #142339; --ink: #e8eef6; --muted: #9aabc2;
+  --line: #26384f; --sun: #f2b33d; --sun-soft: rgba(242, 179, 61, .14); --cell: #7fa8e0;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font-family: var(--font-body); font-size: 1.0625rem; line-height: 1.6;
+}
+a { color: var(--cell); text-underline-offset: 3px; }
+a:hover { color: var(--sun); }
+:focus-visible { outline: 2px solid var(--sun); outline-offset: 3px; border-radius: 4px; }
+h1, h2, h3 { font-family: var(--font-display); line-height: 1.1; text-wrap: balance; margin: 0; }
+h2 { font-size: clamp(1.6rem, 3vw, 2.1rem); font-weight: 700; letter-spacing: -.01em; }
+h3 { font-size: 1.2rem; font-weight: 700; }
+p { margin: 0; }
+
+.wrap { max-width: 1040px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 40px); }
+
+/* Navegação */
+nav.top { border-bottom: 1px solid var(--line); }
+nav.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 14px; flex-wrap: wrap; }
+nav.top .brand { font-family: var(--font-display); font-weight: 800; font-size: 1.1rem; color: var(--ink); text-decoration: none; }
+nav.top ul { list-style: none; margin: 0; padding: 0; display: flex; gap: clamp(12px, 2.5vw, 28px); flex-wrap: wrap; }
+nav.top ul a { color: var(--muted); text-decoration: none; font-weight: 500; }
+nav.top ul a:hover { color: var(--ink); }
+
+/* Herói */
+.hero { padding-block: clamp(40px, 7vw, 80px) 24px; display: grid; gap: 28px; }
+.hero h1 { font-size: clamp(2.6rem, 7vw, 4.6rem); font-weight: 800; letter-spacing: -.03em; }
+.hero .role { font-family: var(--font-display); font-weight: 500; font-size: clamp(1.15rem, 2.4vw, 1.5rem); color: var(--muted); }
+.hero .lead { max-width: 62ch; font-size: 1.15rem; }
+.hero .actions { display: flex; gap: 12px; flex-wrap: wrap; }
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 11px 20px; border-radius: 999px; font-weight: 600; text-decoration: none; border: 1.5px solid var(--ink); color: var(--ink); }
+.btn.primary { background: var(--ink); color: var(--bg); }
+.btn:hover { border-color: var(--sun); color: var(--ink); background: var(--sun-soft); }
+
+.curve { margin-top: 8px; }
+.curve svg { width: 100%; height: auto; display: block; overflow: visible; }
+.curve .axis { stroke: var(--line); }
+.curve .tick { fill: var(--muted); font: 500 12px var(--font-body); }
+.curve .area { fill: var(--sun-soft); }
+.curve .line { fill: none; stroke: var(--sun); stroke-width: 3; stroke-linecap: round; }
+.curve .peak { fill: var(--sun); }
+.curve .note { fill: var(--ink); font: 600 13px var(--font-body); }
+.curve figcaption { color: var(--muted); font-size: .9rem; margin-top: 6px; }
+@media (prefers-reduced-motion: no-preference) {
+  .curve .line { stroke-dasharray: 1400; stroke-dashoffset: 1400; animation: draw 1.8s ease-out .2s forwards; }
+  @keyframes draw { to { stroke-dashoffset: 0; } }
+}
+
+/* Números */
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 0; border-block: 1px solid var(--line); margin-top: 32px; }
+.facts div { padding: 18px 20px 18px 0; }
+.facts div + div { border-left: 1px solid var(--line); padding-left: 20px; }
+.facts strong { display: block; font-family: var(--font-display); font-size: 2rem; font-weight: 800; line-height: 1; }
+.facts span { color: var(--muted); font-size: .95rem; }
+@media (max-width: 560px) { .facts div + div { border-left: 0; padding-left: 0; border-top: 1px solid var(--line); } }
+
+section { padding-block: clamp(48px, 7vw, 80px) 0; }
+.section-head { display: grid; gap: 8px; margin-bottom: 28px; max-width: 64ch; }
+.section-head p { color: var(--muted); }
+
+/* Destaques */
+.featured { display: grid; gap: 0; border-top: 1px solid var(--line); }
+.feat { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: 12px 40px; padding: 28px 0; border-bottom: 1px solid var(--line); }
+.feat .where { color: var(--muted); font-size: .95rem; margin-top: 4px; }
+.feat ul { margin: 10px 0 0; padding-left: 1.1em; }
+.feat li + li { margin-top: 4px; }
+.feat .stack { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { font-size: .85rem; padding: 2px 10px; border-radius: 999px; background: var(--surface); border: 1px solid var(--line); color: var(--muted); white-space: nowrap; }
+@media (max-width: 760px) { .feat { grid-template-columns: 1fr; } }
+
+/* Todos os projetos */
+.filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+.filters button { font: 600 .95rem var(--font-body); padding: 7px 16px; border-radius: 999px; border: 1.5px solid var(--line); background: transparent; color: var(--muted); cursor: pointer; }
+.filters button[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.filters button:hover { border-color: var(--sun); }
+.projects { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+.proj { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 18px 20px; display: grid; gap: 8px; align-content: start; }
+.proj .cat { font-size: .85rem; color: var(--sun); font-weight: 600; }
+.proj p { color: var(--muted); font-size: .98rem; }
+.proj .stack { font-size: .88rem; color: var(--muted); }
+.proj a { font-weight: 600; font-size: .95rem; }
+.proj[hidden] { display: none; }
+
+/* Trajetória */
+.timeline { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+.timeline > li { display: grid; grid-template-columns: 130px minmax(0, 1fr); gap: 24px; padding: 22px 0; border-top: 1px solid var(--line); }
+.timeline .when { font-family: var(--font-display); font-weight: 700; color: var(--muted); font-variant-numeric: tabular-nums; }
+.timeline .org { color: var(--muted); margin-top: 2px; }
+.timeline ul { margin: 10px 0 0; padding-left: 1.1em; }
+.timeline .now .when { color: var(--sun); }
+@media (max-width: 600px) { .timeline > li { grid-template-columns: 1fr; gap: 6px; } }
+
+/* Competências */
+.skills { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px 40px; }
+.skills h3 { font-size: 1.05rem; margin-bottom: 10px; }
+.skills .stack { display: flex; flex-wrap: wrap; gap: 6px; }
+
+/* Contato */
+.contact { margin-top: clamp(56px, 8vw, 96px); background: var(--ink); color: var(--bg); }
+.contact .wrap { padding-block: clamp(40px, 6vw, 64px); display: grid; gap: 20px; }
+.contact h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); }
+.contact p { max-width: 56ch; opacity: .85; }
+.contact dl { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 8px 20px; margin: 0; }
+.contact dt { opacity: .7; }
+.contact dd { margin: 0; overflow-wrap: anywhere; }
+.contact a { color: var(--bg); }
+.contact a:hover { color: var(--sun); }
+footer { padding-block: 20px; color: var(--muted); font-size: .9rem; }
+</style>
+</head>
+<body>
+
+<nav class="top" aria-label="Seções">
+  <div class="wrap">
+    <a class="brand" href="#inicio">Thiago Antunes</a>
+    <ul>
+      <li><a href="#projetos">Projetos</a></li>
+      <li><a href="#trajetoria">Trajetória</a></li>
+      <li><a href="#competencias">Competências</a></li>
+      <li><a href="#contato">Contato</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header id="inicio" class="wrap hero">
+  <div>
+    <h1>Thiago Antunes</h1>
+    <p class="role">Analista de Sistemas e Automação · Desenvolvedor Full-Stack</p>
+  </div>
+  <p class="lead">Transformo processos manuais e planilhas espalhadas em sistemas web confiáveis. Hoje desenvolvo o ERP e os robôs de automação da J3 Energia, onde um coletor automático confere todos os dias a geração de mais de 30 usinas solares.</p>
+  <div class="actions">
+    <a class="btn primary" href="#projetos">Ver projetos</a>
+    <a class="btn" href="https://github.com/thiagoxantunes">GitHub</a>
+    <a class="btn" href="https://www.linkedin.com/in/thiago-antunes-5bb029201">LinkedIn</a>
+  </div>
+
+  <figure class="curve" aria-label="Curva típica de geração de uma usina solar ao longo do dia, com pico ao meio-dia">
+    <svg viewBox="0 0 1000 200" role="img" aria-hidden="true">
+      <line class="axis" x1="0" y1="170" x2="1000" y2="170"/>
+      <path class="area" d="M40,170 C180,170 260,150 340,95 C420,35 470,22 500,22 C530,22 580,35 660,95 C740,150 820,170 960,170 Z"/>
+      <path class="line" d="M40,170 C180,170 260,150 340,95 C420,35 470,22 500,22 C530,22 580,35 660,95 C740,150 820,170 960,170"/>
+      <circle class="peak" cx="500" cy="22" r="6"/>
+      <text class="note" x="516" y="18">pico de geração</text>
+      <text class="tick" x="40" y="192" text-anchor="middle">06h</text>
+      <text class="tick" x="270" y="192" text-anchor="middle">09h</text>
+      <text class="tick" x="500" y="192" text-anchor="middle">12h</text>
+      <text class="tick" x="730" y="192" text-anchor="middle">15h</text>
+      <text class="tick" x="960" y="192" text-anchor="middle">18h</text>
+    </svg>
+    <figcaption>A curva de um dia de usina fotovoltaica: o dado que meu robô coleta, analisa e transforma em relatório toda manhã.</figcaption>
+  </figure>
+
+  <div class="facts">
+    <div><strong>17</strong><span>projetos entregues</span></div>
+    <div><strong>30+</strong><span>usinas monitoradas por dia</span></div>
+    <div><strong>5</strong><span>portais de fabricantes integrados</span></div>
+    <div><strong>dez/2026</strong><span>conclusão do Bacharelado em SI</span></div>
+  </div>
+</header>
+
+<main>
+<section id="projetos" class="wrap">
+  <div class="section-head">
+    <h2>Projetos em destaque</h2>
+    <p>Sistemas em produção ou em desenvolvimento ativo, cada um com a documentação completa no GitHub.</p>
+  </div>
+
+  <div class="featured">
+    <article class="feat">
+      <div>
+        <h3>SolarOps Pro</h3>
+        <p class="where">ERP/SaaS para empresa de energia solar · J3 Energia</p>
+      </div>
+      <div>
+        <p>Une as áreas comercial, operacional e financeira em uma plataforma só, no lugar de planilhas e ferramentas separadas.</p>
+        <ul>
+          <li>Propostas com cálculo de payback e ROI, kits e ordens de serviço</li>
+          <li>Clientes, usinas, alertas e manutenções preventivas e corretivas</li>
+          <li>Contas, fluxo de caixa, DRE, conciliação bancária, notas fiscais e estoque</li>
+          <li>10 workflows de GitHub Actions: CI, testes, backup, alertas e faturas por e-mail</li>
+        </ul>
+        <div class="stack"><span class="chip">Next.js 15</span><span class="chip">TypeScript</span><span class="chip">Supabase</span><span class="chip">shadcn/ui</span><span class="chip">GitHub Actions</span></div>
+      </div>
+    </article>
+
+    <article class="feat">
+      <div>
+        <h3>Robô de Monitoramento Solar</h3>
+        <p class="where">Automação de O&amp;M · J3 Energia</p>
+      </div>
+      <div>
+        <p>Coleta todos os dias a geração de mais de 30 usinas fotovoltaicas, sem ninguém precisar entrar em cada portal.</p>
+        <ul>
+          <li>Coletores para Solarman, SAJ, Tsuness, SunWEG e GoodWe</li>
+          <li>Detecta usinas offline, com alerta ou com geração abaixo do esperado</li>
+          <li>Relatório diário para a equipe e fechamento mensal em kWh</li>
+        </ul>
+        <div class="stack"><span class="chip">TypeScript</span><span class="chip">Playwright</span><span class="chip">Node.js</span><span class="chip">node-cron</span></div>
+      </div>
+    </article>
+
+    <article class="feat">
+      <div>
+        <h3>Aluguei</h3>
+        <p class="where">Marketplace de aluguel de imóveis</p>
+      </div>
+      <div>
+        <p>Imobiliárias publicam imóveis e clientes encontram, conversam e agendam visitas no mesmo lugar.</p>
+        <ul>
+          <li>Busca com filtros e mapa interativo</li>
+          <li>Chat em tempo real, favoritos e agendamento de visitas</li>
+          <li>Painel de moderação de empresas, anúncios e denúncias</li>
+        </ul>
+        <div class="stack"><span class="chip">Next.js 16</span><span class="chip">React 19</span><span class="chip">Supabase Realtime</span><span class="chip">Leaflet</span></div>
+      </div>
+    </article>
+
+    <article class="feat">
+      <div>
+        <h3>Gestão de Lanchonete</h3>
+        <p class="where">Operação completa de food service</p>
+      </div>
+      <div>
+        <p>Do pedido feito pelo cliente no celular até o caixa e o estoque.</p>
+        <ul>
+          <li>Cardápio digital por QR Code e aprovação de pedidos</li>
+          <li>Painel da cozinha em tempo real, expedição e impressão</li>
+          <li>Estoque, fichas técnicas, compras e financeiro, com testes automatizados</li>
+        </ul>
+        <div class="stack"><span class="chip">Next.js 16</span><span class="chip">Supabase</span><span class="chip">Vitest</span><span class="chip">PGlite</span></div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section id="todos" class="wrap" aria-labelledby="todos-title">
+  <div class="section-head">
+    <h2 id="todos-title">Todos os projetos</h2>
+    <p>17 projetos, do ERP corporativo ao site de um ponto de cultura. Filtre por área.</p>
+  </div>
+  <div class="filters" role="group" aria-label="Filtrar projetos por área" id="filters"></div>
+  <div class="projects" id="projects"></div>
+</section>
+
+<section id="trajetoria" class="wrap">
+  <div class="section-head">
+    <h2>Trajetória</h2>
+  </div>
+  <ol class="timeline" reversed>
+    <li class="now">
+      <div class="when">2025 – hoje</div>
+      <div>
+        <h3>Desenvolvedor Full-Stack</h3>
+        <p class="org">Freelancer</p>
+        <ul>
+          <li>Sistemas web e sites sob medida para empresas e profissionais liberais</li>
+          <li>Marketplace imobiliário, gestão pecuária, lanchonete, consultório de psicologia e sites com SEO local</li>
+        </ul>
+      </div>
+    </li>
+    <li class="now">
+      <div class="when">2024 – hoje</div>
+      <div>
+        <h3>Analista de Sistemas e Automação</h3>
+        <p class="org">J3 Energia Soluções</p>
+        <ul>
+          <li>Desenvolvi o SolarOps Pro, ERP/SaaS que integra comercial, operação e financeiro</li>
+          <li>Automatizei o monitoramento diário de 30+ usinas com um robô em Playwright</li>
+          <li>Implantei 10 rotinas de CI/CD e automações em Google Apps Script e Bitrix24</li>
+        </ul>
+      </div>
+    </li>
+    <li>
+      <div class="when">2022 – 2023</div>
+      <div>
+        <h3>Técnico de Informática (estágio)</h3>
+        <p class="org">CNEC – Campanha Nacional de Escolas da Comunidade</p>
+        <ul>
+          <li>Suporte técnico a professores e alunos nas aulas digitais</li>
+          <li>Manutenção preventiva e corretiva dos computadores da instituição</li>
+        </ul>
+      </div>
+    </li>
+    <li class="now">
+      <div class="when">2020 – hoje</div>
+      <div>
+        <h3>Fundador</h3>
+        <p class="org">Thiago Antunes Assessoria de Trânsito</p>
+        <ul>
+          <li>Atendimento ao público e gestão do negócio</li>
+          <li>Sistema de gestão, landing page e aplicativo Android próprios</li>
+        </ul>
+      </div>
+    </li>
+    <li>
+      <div class="when">2020 – 2026</div>
+      <div>
+        <h3>Bacharelado em Sistemas de Informação</h3>
+        <p class="org">Instituto Federal Fluminense, Campus Itaperuna · conclusão prevista para dezembro de 2026</p>
+        <ul>
+          <li>TCC: Sistema de Gestão de Estágios para a Agência de Oportunidades do IFF</li>
+        </ul>
+      </div>
+    </li>
+  </ol>
+</section>
+
+<section id="competencias" class="wrap">
+  <div class="section-head">
+    <h2>Competências</h2>
+  </div>
+  <div class="skills">
+    <div><h3>Front-end</h3><div class="stack"><span class="chip">Next.js</span><span class="chip">React</span><span class="chip">TypeScript</span><span class="chip">JavaScript</span><span class="chip">Tailwind CSS</span><span class="chip">shadcn/ui</span></div></div>
+    <div><h3>Back-end e dados</h3><div class="stack"><span class="chip">Supabase</span><span class="chip">PostgreSQL</span><span class="chip">Node.js</span><span class="chip">Zod</span><span class="chip">Row Level Security</span></div></div>
+    <div><h3>Automação e qualidade</h3><div class="stack"><span class="chip">Playwright</span><span class="chip">Vitest</span><span class="chip">GitHub Actions</span><span class="chip">Google Apps Script</span></div></div>
+    <div><h3>Engenharia de software</h3><div class="stack"><span class="chip">Levantamento de requisitos</span><span class="chip">Casos de uso</span><span class="chip">UML</span><span class="chip">Clean Architecture</span><span class="chip">LaTeX</span></div></div>
+    <div><h3>Infraestrutura</h3><div class="stack"><span class="chip">Vercel</span><span class="chip">Git</span><span class="chip">Android (TWA)</span></div></div>
+    <div><h3>Suporte</h3><div class="stack"><span class="chip">Manutenção de computadores</span><span class="chip">Suporte a usuários</span><span class="chip">Bitrix24</span></div></div>
+  </div>
+</section>
+</main>
+
+<section id="contato" class="contact">
+  <div class="wrap">
+    <h2>Vamos conversar</h2>
+    <p>Disponível para oportunidades em desenvolvimento web e automação de processos, presencial em Miracema (RJ), híbrido ou remoto.</p>
+    <dl>
+      <dt>E-mail</dt><dd><a href="mailto:thiaguinhooantunes@gmail.com">thiaguinhooantunes@gmail.com</a></dd>
+      <dt>LinkedIn</dt><dd><a href="https://www.linkedin.com/in/thiago-antunes-5bb029201">linkedin.com/in/thiago-antunes-5bb029201</a></dd>
+      <dt>GitHub</dt><dd><a href="https://github.com/thiagoxantunes">github.com/thiagoxantunes</a></dd>
+      <dt>Cidade</dt><dd>Miracema, RJ</dd>
+    </dl>
+  </div>
+</section>
+
+<footer class="wrap">© 2026 Thiago Xavier Antunes</footer>
+
+<script>
+const BASE = "https://github.com/thiagoxantunes/thiagoxantunes/tree/main/projetos/";
+const projetos = [
+  { n: "SolarOps Pro", c: "Energia solar", d: "ERP/SaaS com módulos comercial, operacional e financeiro para empresa de energia solar.", s: "Next.js · TypeScript · Supabase", p: "01-solarops-pro" },
+  { n: "Robô de Monitoramento Solar", c: "Energia solar", d: "Coleta diária da geração de 30+ usinas em 5 portais de fabricantes, com relatórios de O&M.", s: "TypeScript · Playwright · Node.js", p: "02-monitoramento-solar" },
+  { n: "Sistema de Gestão de Estágios (TCC)", c: "Gestão", d: "Centraliza o ciclo do estágio na Agência de Oportunidades do IFF, da vaga à declaração final.", s: "UML · Casos de uso · LaTeX", p: "03-sistema-estagios-iff" },
+  { n: "Aluguei", c: "Marketplace", d: "Portal de aluguel com mapa, chat em tempo real, visitas agendadas e moderação.", s: "Next.js 16 · React 19 · Supabase", p: "04-aluguei" },
+  { n: "Gestão Pecuária", c: "Gestão", d: "Compra de gado, fazendas no mapa, pesagem, fretes, custos e resultados em uma operação única.", s: "Next.js 15 · Supabase · Leaflet", p: "05-gestao-pecuaria" },
+  { n: "Gestão de Lanchonete", c: "Gestão", d: "Cardápio por QR Code, cozinha em tempo real, caixa, estoque e fichas técnicas.", s: "Next.js 16 · Supabase · Vitest", p: "06-gestao-lanchonete" },
+  { n: "Sistema para Despachante", c: "Gestão", d: "Clientes, veículos, orçamentos em PDF, serviços recorrentes, landing page e app Android.", s: "Next.js · Supabase · Android TWA", p: "07-sistema-despachante" },
+  { n: "Consultório de Psicologia", c: "Saúde", d: "Agenda, prontuário eletrônico, financeiro, análise assistida por IA e site profissional.", s: "Next.js · Supabase · IA", p: "08-sistema-psicologia" },
+  { n: "FutevôleiCup", c: "Esporte", d: "Campeonatos com chaveamento em dupla eliminação e placar em tempo real.", s: "Next.js 14 · Supabase Realtime", p: "09-futevolei-cup" },
+  { n: "Rei dos Barateiros", c: "Marketplace", d: "Vitrine de eletrodomésticos com painel admin e compra direta pelo WhatsApp.", s: "Next.js · Supabase", p: "10-rei-dos-barateiros" },
+  { n: "Finanças Pessoais", c: "Gestão", d: "Receitas, despesas, metas e um conselheiro financeiro com relatórios.", s: "Next.js · Supabase · Recharts", p: "11-financas-pessoais" },
+  { n: "Luvik Solar", c: "Energia solar", d: "Clientes, produtos, orçamentos e faturas em PDF para empresa do setor solar.", s: "React · Vite · Zustand · jsPDF", p: "12-luvik-solar" },
+  { n: "Hidratação Inteligente", c: "Saúde", d: "Acompanhamento do consumo de água por perfil, com metas e histórico.", s: "Next.js · Supabase · Framer Motion", p: "13-hidratacao-inteligente" },
+  { n: "Registros de Enfermagem", c: "Saúde", d: "Registro de atendimentos, histórico pesquisável e relatórios em PDF.", s: "Next.js · Supabase · jsPDF", p: "14-registros-enfermagem" },
+  { n: "Sites Institucionais", c: "Sites", d: "Ponto de Cultura Cara da Rua, Cine Miracema, nutricionista, psicóloga e despachante.", s: "HTML · CSS · JavaScript · Vercel", p: "15-sites-institucionais" },
+  { n: "Automações Internas J3", c: "Energia solar", d: "Checklists de vistoria em Apps Script, dashboard financeiro e coleta de ponto no Bitrix24.", s: "Apps Script · JavaScript", p: "16-automacoes-j3" },
+  { n: "Documentação em LaTeX", c: "Gestão", d: "Casos de uso e referências ABNT da documentação técnica do TCC.", s: "LaTeX · BibTeX", p: "17-documentacao-latex" }
+];
+
+const areas = ["Todos", ...new Set(projetos.map(p => p.c))];
+const filters = document.getElementById("filters");
+const grid = document.getElementById("projects");
+
+grid.innerHTML = projetos.map(p => `
+  <article class="proj" data-cat="${p.c}">
+    <span class="cat">${p.c}</span>
+    <h3>${p.n}</h3>
+    <p>${p.d}</p>
+    <span class="stack">${p.s}</span>
+    <a href="${BASE}${p.p}">Ver detalhes no GitHub</a>
+  </article>`).join("");
+
+areas.forEach((a, i) => {
+  const b = document.createElement("button");
+  b.type = "button";
+  b.id = "filtro-" + i;
+  b.textContent = a;
+  b.setAttribute("aria-pressed", i === 0 ? "true" : "false");
+  b.addEventListener("click", () => {
+    filters.querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", "false"));
+    b.setAttribute("aria-pressed", "true");
+    grid.querySelectorAll(".proj").forEach(el => { el.hidden = a !== "Todos" && el.dataset.cat !== a; });
+  });
+  filters.appendChild(b);
+});
+</script>
+</body>
+</html>
